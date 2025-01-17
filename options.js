@@ -18,9 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const saveRegexList = (regexList) => {
-    chrome.storage.local.set({ regexList }, () => {
-      console.log('regexList saved to chrome.storage.local');
-    });
+    chrome.storage.local.set({ regexList }, () => { });
   };
 
   const renderRegexList = () => {
@@ -88,6 +86,13 @@ document.addEventListener('DOMContentLoaded', () => {
         renderRegexList();
       });
       regexInput.value = '';
+    }
+  });
+
+  regexInput.addEventListener('keypress', (event) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      addRegexButton.click();
     }
   });
 

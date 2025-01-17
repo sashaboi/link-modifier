@@ -44,7 +44,6 @@ const setupObserver = () => {
 
   try {
     observer.observe(document.body, { childList: true, subtree: true });
-    console.log('MutationObserver set up successfully');
   } catch (error) {
     console.error('Error setting up MutationObserver:', error);
   }
@@ -62,4 +61,3 @@ chrome.storage.local.get("regexList", (data) => {
   const regexList = data.regexList || [...defaultRegexList];
   modifyLinks(regexList);
 });
-console.log('content.js is running and observing changes in the regex list');
