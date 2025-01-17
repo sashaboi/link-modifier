@@ -1,0 +1,91 @@
+document.addEventListener('DOMContentLoaded', () => {
+  const regexInput = document.getElementById('regex-input');
+  const addRegexButton = document.getElementById('add-regex');
+  const regexListContainer = document.getElementById('regex-list');
+
+  const defaultRegexList = [
+    { pattern: '\\.vercel\\.com', active: true },
+    { pattern: '\\.netlify\\.com', active: true },
+    { pattern: '\\.github\\.io', active: true },
+    { pattern: '\\.vercel\\.app', active: true }
+  ];
+
+  const loadRegexList = () => {
+    try {
+      const storedRegexList = localStorage.getItem('regexList');
+      return storedRegexList ? JSON.parse(storedRegexList) : [...defaultRegexList];
+    } catch (error) {
+      console.error('Error loading regexList from localStorage:', error);
+      return [...defaultRegexList];
+    }
+  };
+
+  const saveRegexList = (regexList) => {
+    try {
+      localStorage.setItem('regexList', JSON.stringify(regexList));
+      console.log('regexList saved to localStorage');
+    } catch (error) {
+      console.error('Error saving regexList to localStorage:', error);
+    }
+  };
+
+  const renderRegexList = () => {
+    regexListContainer.innerHTML = '';
+    const regexList = loadRegexList();
+    regexList.forEach((item, index) => {
+      const regexItem = document.createElement('div');
+      regexItem.className = 'regex-item list-group-item d-flex justify-content-between align-items-center';
+
+      const regexInput = document.createElement('input');
+      regexInput.type = 'text';
+      regexInput.className = 'form-control';
+      regexInput.value = item.pattern;
+      regexItem.appendChild(regexInput);
+
+      const activeCheckbox = document.createElement('input');
+      activeCheckbox.type = 'checkbox';
+      activeCheckbox.className = 'form-check-input';
+      activeCheckbox.checked = item.active;
+      activeCheckbox.addEventListener('change', () => {
+        const updatedRegexList = loadRegexList();
+        updatedRegexList[index].active = activeCheckbox.checked;
+        saveRegexList(updatedRegexList);
+      });
+      const checkboxLabel = document.createElement('label');
+      checkboxLabel.className = 'form-check-label';
+      checkboxLabel.textContent = 'Active';
+
+      const formCheck = document.createElement('div');
+      formCheck.className = 'form-check';
+      formCheck.appendChild(activeCheckbox);
+      formCheck.appendChild(checkboxLabel);
+      regexItem.appendChild(formCheck);
+
+      const removeButton = document.createElement('button');
+      removeButton.className = 'btn btn-danger';
+      removeButton.textContent = 'Remove';
+      removeButton.addEventListener('click', () => {
+        const updatedRegexList = loadRegexList();
+        updatedRegexList.splice(index, 1);
+        saveRegexList(updatedRegexList);
+        renderRegexList();
+      });
+      regexItem.appendChild(removeButton);
+
+      regexListContainer.appendChild(regexItem);
+    });
+  };
+
+  addRegexButton.addEventListener('click', () => {
+    const regexPattern = regexInput.value.trim();
+    if (regexPattern) {
+      const regexList = loadRegexList();
+      regexList.push({ pattern: regexPattern, active: true });
+      saveRegexList(regexList);
+      renderRegexList();
+      regexInput.value = '';
+    }
+  });
+
+  renderRegexList();
+});
