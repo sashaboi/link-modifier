@@ -1,0 +1,31 @@
+Privacy Policy
+
+This privacy policy governs the use of the Link Modifier application.
+
+1. Information Collection and Use
+
+We do not collect any personal information from users of this application.
+
+2. Log Data
+
+We do not collect any log data from users of this application.
+
+3. Cookies
+
+We do not use cookies in this application.
+
+4. Third-Party Services
+
+This application does not use any third-party services that may collect or store user data.
+
+5. Security
+
+We take reasonable measures to protect the information provided by users of this application. However, please note that no method of transmission over the internet or electronic storage is 100% secure.
+
+6. Changes to This Privacy Policy
+
+We may update this privacy policy from time to time. Users are advised to review this page periodically for any changes.
+
+7. Contact Us
+
+If you have any questions or suggestions about this privacy policy, please contact us at https://github.com/sashaboi/link-modifier.
