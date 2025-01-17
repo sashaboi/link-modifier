@@ -3,7 +3,7 @@
   "name": "Link Modifier",
   "version": "1.0",
   "description": "Automatically opens matching links in a new tab.",
-  "permissions": ["storage","activeTab"],
+  "permissions": ["storage"],
   "host_permissions": [
     "https://*.github.com/*"
   ],
