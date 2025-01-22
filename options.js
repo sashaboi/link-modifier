@@ -77,9 +77,19 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   };
 
+  const urlToRegex = (url) => {
+    const formattedUrl = url.replace(/^(https?:\/\/)?(www\.)?/, '').replace(/\/$/, '');
+
+    const domain = formattedUrl.split('/')[0];
+    const domainRegex = `\\.${domain.replace(/\./g, '\\.')}`;
+
+    return domainRegex;
+  };
+
   addRegexButton.addEventListener('click', () => {
-    const regexPattern = regexInput.value.trim();
-    if (regexPattern) {
+    const url = regexInput.value.trim();
+    if (url) {
+      const regexPattern = urlToRegex(url);
       loadRegexList((regexList) => {
         regexList.push({ pattern: regexPattern, active: true });
         saveRegexList(regexList);
